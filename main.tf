@@ -371,7 +371,7 @@ resource "aws_instance" "ignore_ami" {
 
   lifecycle {
     ignore_changes = [
-      ami
+      ami, user_data_base64
     ]
   }
 }
