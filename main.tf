@@ -190,6 +190,10 @@ resource "aws_instance" "this" {
 
   tags        = merge({ "Name" = var.name }, var.instance_tags, var.tags)
   volume_tags = var.enable_volume_tags ? merge({ "Name" = var.name }, var.volume_tags) : null
+
+  lifecycle {
+    ignore_changes = [ volume_tags ]
+  }
 }
 
 ################################################################################
@@ -371,7 +375,7 @@ resource "aws_instance" "ignore_ami" {
 
   lifecycle {
     ignore_changes = [
-      ami, user_data_base64
+      ami, user_data_base64, volume_tags
     ]
   }
 }
